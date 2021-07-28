@@ -1,0 +1,29 @@
+{
+  "name": "react-parking-app-mongodb",
+  "version": "1.0.0",
+  "description": "This is parking app using react exptess nodejs mongodb",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zubairkhan1234/react-parking-app-mongodb.git"
+  },
+  "author": "Muhammad zubair",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zubairkhan1234/react-parking-app-mongodb/issues"
+  },
+  "homepage": "https://github.com/zubairkhan1234/react-parking-app-mongodb#readme",
+  "dependencies": {
+    "bcrypt-inzi": "^1.0.7",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.13.3",
+    "morgan": "^1.10.0"
+  }
+}
