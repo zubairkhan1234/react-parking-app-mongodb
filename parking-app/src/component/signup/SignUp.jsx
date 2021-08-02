@@ -9,6 +9,10 @@ import signUpImage from '../images/signup.jpg'
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)'
     },
     paper: {
         height: 140,
@@ -19,14 +23,18 @@ const useStyles = makeStyles((theme) => ({
     },
     image: {
         width: '100%',
-        borderRadius: '20px'
+        borderRadius: '20px',
     },
     formHeader: {
         textAlign: 'center'
     },
     form: {
-        width: '70%',
-        margin: "0 auto"
+        width: '85%',
+        margin: "0 auto",
+        marginTop: '8%'
+    },
+    margin: {
+        margin: '4% 0%'
     }
 }));
 
@@ -36,32 +44,31 @@ export default function SignUp() {
     return (
         <Container>
             <Grid container className={classes.root} spacing={2}>
-                <Grid item xs={6}>
-                    <Box>
-                        <img className={classes.image} src={signUpImage} alt="" />
-                    </Box>
-                </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={6}  >
                     <Box>
                         <Typography className={classes.formHeader} variant="h4">
                             Please Register
                         </Typography>
                         <form action="" className={classes.form}>
                             <Grid>
-                                <TextField fullWidth label="Name" />
+                                <TextField className={classes.margin} fullWidth label="Name" />
                             </Grid>
                             <Grid>
-                                <TextField fullWidth label="Email" />
+                                <TextField className={classes.margin} fullWidth label="Email" />
                             </Grid>
                             <Grid>
-                                <TextField fullWidth label="Phone" />
+                                <TextField className={classes.margin} fullWidth label="Phone" />
                             </Grid>
                             <Grid>
-                                <TextField fullWidth label="Password" />
+                                <TextField className={classes.margin} fullWidth label="Password" />
                             </Grid>
-
-                            <Button variant="contained" color="primary">Register</Button>
+                            <Button className={classes.margin} variant="contained" color="primary">Register</Button>
                         </form>
+                    </Box>
+                </Grid>
+                <Grid item xs={6} style={{ position: 'relative' }}>
+                    <Box style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '80%' }} >
+                        <img className={classes.image} src={signUpImage} alt="" />
                     </Box>
                 </Grid>
             </Grid>

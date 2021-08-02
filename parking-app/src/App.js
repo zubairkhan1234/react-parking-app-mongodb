@@ -1,9 +1,9 @@
 import React from 'react'
-import SignUp from './signup/SignUp'
+import NavAndRouting from './component/navAndRouting/NavAndRouting';
 
 function App() {
   return (
-    <SignUp/>
+    <NavAndRouting />
   );
 }
 
