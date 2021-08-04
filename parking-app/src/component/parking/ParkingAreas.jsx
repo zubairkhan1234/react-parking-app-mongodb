@@ -11,6 +11,7 @@ import Grid from '@material-ui/core/Grid'
 import clifton from '../images/clifton.jpg'
 import highway from '../images/highway.jpg'
 import talwaar3 from '../images/3talwaar.jpg'
+import { Link } from 'react-router-dom';
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -47,12 +48,17 @@ export default function ParkingAreas() {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="primary">
-                Parking Booking
-              </Button>
-              <Button size="small" color="primary">
-                Slot details
-              </Button>
+              <Link to="/parking-slots-booking">
+                <Button size="small" color="primary">
+                  Parking Booking
+                </Button>
+              </Link>
+              <Link to="/parking-slots-detail">
+                <Button size="small" color="primary">
+
+                  Slot details
+                </Button>
+              </Link>
             </CardActions>
           </Card>
         </Grid>
@@ -75,12 +81,17 @@ export default function ParkingAreas() {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="primary">
-                Parking Booking
-              </Button>
-              <Button size="small" color="primary">
-                Slot details
-              </Button>
+              <Link to="/parking-slots-booking">
+                <Button size="small" color="primary">
+                  Parking Booking
+                </Button>
+              </Link>
+              <Link to="/parking-slots-detail">
+                <Button size="small" color="primary">
+
+                  Slot details
+                </Button>
+              </Link>
             </CardActions>
           </Card>
         </Grid>
@@ -103,12 +114,17 @@ export default function ParkingAreas() {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="primary">
-                Parking Booking
-              </Button>
-              <Button size="small" color="primary">
-                Slot details
-              </Button>
+              <Link to="/parking-slots-booking">
+                <Button size="small" color="primary">
+                  Parking Booking
+                </Button>
+              </Link>
+              <Link to="/parking-slots-detail">
+                <Button size="small" color="primary">
+
+                  Slot details
+                </Button>
+              </Link>
             </CardActions>
           </Card>
         </Grid>
@@ -131,12 +147,17 @@ export default function ParkingAreas() {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="primary">
-                Parking Booking
-              </Button>
-              <Button size="small" color="primary">
-                Slot details
-              </Button>
+              <Link to="/parking-slots-booking">
+                <Button size="small" color="primary">
+                  Parking Booking
+                </Button>
+              </Link>
+              <Link to="/parking-slots-detail">
+                <Button size="small" color="primary">
+
+                  Slot details
+                </Button>
+              </Link>
             </CardActions>
           </Card>
         </Grid>
