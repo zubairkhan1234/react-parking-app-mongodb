@@ -28,7 +28,7 @@ export default function ParkingAreas() {
 
   return (
     <>
-      <Grid container spacing={3} justifyContent="space-around">
+      <Grid container spacing={3} justifyContent="space-around" style={{paddingTop:"5%", width:'100%'}}>
         <Grid item>
           <Card className={classes.root}>
             <CardActionArea>

@@ -18,7 +18,9 @@ const useStyles = makeStyles((theme) => ({
         position: 'absolute',
         top: '50%',
         left: '50%',
-        transform: 'translate(-50%, -50%)'
+        transform: 'translate(-50%, -50%)',
+        marginTop:'5%'
+
     },
     paper: {
         height: 140,
@@ -28,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2),
     },
     image: {
-        width: '100%',
+        width: '90%',
         borderRadius: '20px',
     },
     formHeader: {
