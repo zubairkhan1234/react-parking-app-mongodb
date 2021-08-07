@@ -52,7 +52,7 @@ export default function SignUp() {
                         </Typography>
                         <form action="" className={classes.form}>
                             <Grid>
-                                <TextField className={classes.margin} fullWidth label="Name" />
+                                <TextField className={classes.margin} fullWidth label="User Name" />
                             </Grid>
                             <Grid>
                                 <TextField className={classes.margin} fullWidth label="Email" />

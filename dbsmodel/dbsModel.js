@@ -2,7 +2,8 @@ var mongoose = require('mongoose')
 var dotenv = require('dotenv').config()
 
 
-var dburi = process.env.MONGOOSE_DB
+// var dburi = process.env.MONGOOSE_DB
+var dburi = "mongodb+srv://zubairabc:zubairabc@cluster0.j83vk.mongodb.net/parkingapp?retryWrites=true&w=majority"
 mongoose.connect(dburi, { useNewUrlParser: true, useUnifiedTopology: true })
 
 
@@ -26,7 +27,7 @@ mongoose.connection.on('SIGNIT', function () {
 
 })
 
-var studentSchema = new mongoose.Schema({
+var costumerSignup = new mongoose.Schema({
     firstName: String,
     lastName: String,
     fatherName: String,
@@ -39,10 +40,10 @@ var studentSchema = new mongoose.Schema({
     role: { type: String, "default": "student" },
     createdOn: { type: Date, 'default': Date.now },
     activeSince: Date
-  
-  })
-  var studentsModle = mongoose.model("students", studentSchema)
 
-  module.exports = {
-    studentsModle: studentsModle
-  }
+})
+var costumerModel = mongoose.model("costumer", costumerSignup)
+
+module.exports = {
+    costumerModel: costumerModel
+}
