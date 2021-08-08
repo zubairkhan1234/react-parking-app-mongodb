@@ -3,7 +3,7 @@ var dotenv = require('dotenv').config()
 
 
 // var dburi = process.env.MONGOOSE_DB
-var dburi = "mongodb+srv://zubairabc:zubairabc@cluster0.j83vk.mongodb.net/parkingapp?retryWrites=true&w=majority"
+
 mongoose.connect(dburi, { useNewUrlParser: true, useUnifiedTopology: true })
 
 
@@ -17,7 +17,7 @@ mongoose.connection.on('disconnects', function () {
 mongoose.connection.on('error', function () {
     console.log("mongoose is an arror")
     process.exit(1)
-})
+}
 mongoose.connection.on('SIGNIT', function () {
     console.log("app is turminating")
     mongoose.connection.close(function () {
