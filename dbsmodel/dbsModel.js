@@ -2,7 +2,12 @@ var mongoose = require('mongoose')
 var dotenv = require('dotenv').config()
 
 
+<<<<<<< HEAD
 var dburi = process.env.MONGOOSE_DB
+=======
+// var dburi = process.env.MONGOOSE_DB
+
+>>>>>>> ae9561725a1e26d5eabb847182549527634ff1e2
 mongoose.connect(dburi, { useNewUrlParser: true, useUnifiedTopology: true })
 
 
@@ -16,7 +21,7 @@ mongoose.connection.on('disconnects', function () {
 mongoose.connection.on('error', function () {
     console.log("mongoose is an arror")
     process.exit(1)
-})
+}
 mongoose.connection.on('SIGNIT', function () {
     console.log("app is turminating")
     mongoose.connection.close(function () {
