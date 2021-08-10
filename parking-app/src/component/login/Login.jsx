@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { Container, Box, Typography, TextField, Button } from '@material-ui/core';
 import signUpImage from '../images/login.png'
+import axios from 'axios'
+import url from '../url/baseUrl'
 
 
 
@@ -43,6 +45,33 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login() {
     const classes = useStyles();
+    
+    const userEmail = useRef()
+    const userPassword = useRef()
+    
+    const costumerLogin = (e) => {
+        e.preventDefault()
+        console.log(userPassword.current.value)
+        console.log(userEmail.current.value)
+
+
+        axios({
+            method: 'post',
+            url: `${url}/login`,
+            data: {
+                userEmail: userEmail.current.value,
+                userPassword: userPassword.current.value,
+            },
+            withCredentials: true
+        }).then((res) => {
+            console.log(res)
+
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
+
+
     return (
         <Container>
             <Grid container className={classes.root} spacing={2}>
@@ -51,14 +80,14 @@ export default function Login() {
                         <Typography className={classes.formHeader} variant="h4">
                             Please Login
                         </Typography>
-                        <form action="" className={classes.form}>
+                        <form onSubmit={costumerLogin} className={classes.form}>
                             <Grid>
-                                <TextField className={classes.margin} fullWidth label="Email" />
+                                <TextField inputRef={userEmail} className={classes.margin} fullWidth label="Email" />
                             </Grid>
                             <Grid>
-                                <TextField className={classes.margin} fullWidth label="Password" />
+                                <TextField inputRef={userPassword} className={classes.margin} fullWidth label="Password" />
                             </Grid>
-                            <Button className={classes.margin} variant="contained" color="primary">Register</Button>
+                            <Button type="submit" className={classes.margin} variant="contained" color="primary">Register</Button>
                         </form>
                     </Box>
                 </Grid>

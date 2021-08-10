@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { Container, Box, Typography, Button } from '@material-ui/core';
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        marginTop:'5%'
+        marginTop: '5%'
 
     },
     paper: {
@@ -54,11 +54,59 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ParkingBookingFrom() {
     const classes = useStyles();
-    const [selectedDate, setSelectedDate] = useState(new Date('2014-08-18T21:11:54'));
+    const [endTime, setEndTime] = useState(new Date());
+    const [startTime, setStartTime] = useState(new Date());
+    const [startDate, setStartDate] = useState(new Date().toLocaleDateString());
+    const [endDate, setEndDate] = useState(new Date().toLocaleDateString());
 
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
+    const handleStartDate = (date) => {
+        setStartDate(date.toLocaleDateString());
     };
+    const handleEndDate = (date) => {
+        setEndDate(date.toLocaleDateString());
+    };
+    const handleStartTime = (date) => {
+        setStartTime(date.toLocaleTimeString());
+    };
+    const handleEndTime = (date) => {
+        setEndTime(date.toLocaleTimeString());
+    };
+
+
+
+    const bookingStart = new Date(startDate + " " + " " + startTime)
+    const bookingEnd = new Date(endDate + " " + " " + endTime)
+
+
+    const slotBooking = (event) => {
+        event.preventDefault()
+
+
+
+        console.log(startTime)
+        console.log(endTime)
+        console.log(startDate)
+        console.log(endDate)
+        if (startDate > endDate) {
+            alert("End Date should be equal or greater than start date")
+            console.log("right1")
+        } else if(endTime < startTime) {
+            console.log("right2")
+            alert("End time should be greater than start time")
+        }else{
+            console.log('wrong')
+        
+        }
+
+
+    }
+
+
+
+
+
+
+
     return (
         <Container>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -69,7 +117,7 @@ export default function ParkingBookingFrom() {
                             <Typography className={classes.formHeader} variant="h4">
                                 Book Your Parking Slot
                             </Typography>
-                            <form action="" className={classes.form}>
+                            <form action="" className={classes.form} onSubmit={slotBooking}>
                                 <Box display="flex" justifyContent="space-around">
                                     <Grid>
                                         <KeyboardDatePicker
@@ -77,8 +125,9 @@ export default function ParkingBookingFrom() {
                                             id="date-picker-dialog"
                                             label="Pick your Start Date"
                                             format="MM/dd/yyyy"
-                                            value={selectedDate}
-                                            onChange={handleDateChange}
+                                            name='zubarikha n'
+                                            value={startDate}
+                                            onChange={handleStartDate}
                                             KeyboardButtonProps={{
                                                 'aria-label': 'change date',
                                             }}
@@ -89,8 +138,8 @@ export default function ParkingBookingFrom() {
                                             margin="normal"
                                             id="time-picker"
                                             label="Pick your Start Time"
-                                            value={selectedDate}
-                                            onChange={handleDateChange}
+                                            defaultValue={startTime}
+                                            onChange={handleStartTime}
                                             KeyboardButtonProps={{
                                                 'aria-label': 'change time',
                                             }}
@@ -104,8 +153,8 @@ export default function ParkingBookingFrom() {
                                             id="date-picker-dialog"
                                             label="Pick your End Date"
                                             format="MM/dd/yyyy"
-                                            value={selectedDate}
-                                            onChange={handleDateChange}
+                                            value={endDate}
+                                            onChange={handleEndDate}
                                             KeyboardButtonProps={{
                                                 'aria-label': 'change date',
                                             }}
@@ -116,15 +165,15 @@ export default function ParkingBookingFrom() {
                                             margin="normal"
                                             id="time-picker"
                                             label="Pick your End Date"
-                                            value={selectedDate}
-                                            onChange={handleDateChange}
+                                            defaultValue={endTime}
+                                            onChange={handleEndTime}
                                             KeyboardButtonProps={{
                                                 'aria-label': 'change time',
                                             }}
                                         />
                                     </Grid>
                                 </Box>
-                                <Button className={classes.margin} variant="contained" color="primary">Register</Button>
+                                <Button className={classes.margin} variant="contained" color="primary" type="submit">Register</Button>
                             </form>
                         </Box>
                     </Grid>

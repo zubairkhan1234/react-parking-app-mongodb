@@ -28,15 +28,10 @@ mongoose.connection.on('SIGNIT', function () {
 })
 
 var costumerSignup = new mongoose.Schema({
-    firstName: String,
-    lastName: String,
-    fatherName: String,
-    email: String,
-    phone: String,
-    password: String,
-    class: String,
-    gender: String,
-    birthDate: String,
+    usrname: String,
+    useremail: String,
+    userphone: String,
+    userpassword: String,
     role: { type: String, "default": "student" },
     createdOn: { type: Date, 'default': Date.now },
     activeSince: Date

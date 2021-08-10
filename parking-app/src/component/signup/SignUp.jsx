@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { Container, Box, Typography, TextField, Button } from '@material-ui/core';
 import signUpImage from '../images/signup.jpg'
-
+import axios from 'axios'
+import url from '../url/baseUrl'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -13,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        marginTop:'5%'
+        marginTop: '5%'
     },
     paper: {
         height: 140,
@@ -41,7 +42,41 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function SignUp() {
+
     const classes = useStyles();
+    const userName = useRef()
+    const userPhone = useRef()
+    const userPassword = useRef()
+    const userEmail = useRef()
+
+    const costumerSignup = (e) => {
+        e.preventDefault()
+        console.log(userName.current.value)
+        console.log(userPhone.current.value)
+        console.log(userPassword.current.value)
+        console.log(userEmail.current.value)
+
+
+        axios({
+            method: 'post',
+            url: `${url}/signup`,
+            data: {
+                userName: userName.current.value,
+                userPhone: userPhone.current.value,
+                userPassword: userPassword.current.value,
+                userEmail: userEmail.current.value,
+            },
+            withCredentials: true
+        }).then((res) => {
+            console.log(res)
+
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
+
+
+
     return (
         <Container>
             <Grid container className={classes.root} spacing={2}>
@@ -50,20 +85,20 @@ export default function SignUp() {
                         <Typography className={classes.formHeader} variant="h4">
                             Please Register
                         </Typography>
-                        <form action="" className={classes.form}>
+                        <form onSubmit={costumerSignup} className={classes.form}>
                             <Grid>
-                                <TextField className={classes.margin} fullWidth label="User Name" />
+                                <TextField inputRef={userName} className={classes.margin} fullWidth label="User Name" />
                             </Grid>
                             <Grid>
-                                <TextField className={classes.margin} fullWidth label="Email" />
+                                <TextField inputRef={userEmail} className={classes.margin} fullWidth label="Email" />
                             </Grid>
                             <Grid>
-                                <TextField className={classes.margin} fullWidth label="Phone" />
+                                <TextField inputRef={userPhone} className={classes.margin} fullWidth label="Phone" />
                             </Grid>
                             <Grid>
-                                <TextField className={classes.margin} fullWidth label="Password" />
+                                <TextField inputRef={userPassword} className={classes.margin} fullWidth label="Password" />
                             </Grid>
-                            <Button className={classes.margin} variant="contained" color="primary">Register</Button>
+                            <Button type='submit' className={classes.margin} variant="contained" color="primary">Register</Button>
                         </form>
                     </Box>
                 </Grid>

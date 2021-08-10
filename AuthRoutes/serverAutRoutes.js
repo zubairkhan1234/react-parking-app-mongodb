@@ -2,15 +2,15 @@ var express = require('express');
 var bcrypt = require('bcrypt-inzi');
 var jwt = require('jsonwebtoken');
 var { costumerModel } = require('../dbsmodel/dbsModel')
-// var SERVER_SECRET = 
+var SERVER_SECRET = process.env.SERVER_SECRET || "1234"
 console.log(costumerModel)
 var api = express.Router()
 
 api.use('/signup', (req, res, next) => {
-    cosnsole.log(!req.body.userName)
-    cosnsole.log(!req.body.userPhone)
-    cosnsole.log(!req.body.userPassword)
-    cosnsole.log(!req.body.userEmail)
+    console.log(req.body.userName)
+    console.log(req.body.userPhone)
+    console.log(req.body.userPassword)
+    console.log(req.body.userEmail)
 
     if (!req.body.userName
         || !req.body.userPhone
@@ -26,17 +26,19 @@ api.use('/signup', (req, res, next) => {
             `)
         return
     }
-    costumerModel.findOne({ email: req.body.userEmail }, function (err, costumers) {
+    costumerModel.findOne({ useremail: req.body.userEmail }, function (err, costumers) {
+        
         if (err) {
             console.log(err)
-        } else if (!data) {
+        } else if (!costumers) {
+            console.log( "This is costumer ", costumers)
             bcrypt.stringToHash(req.body.userPassword).then(function (hashPassword) {
 
                 var newCostumer = new costumerModel({
                     username: req.body.userName,
                     useremail: req.body.userEmail,
-                    userphone: req.body.hashPassword,
-                    userpassword: req.body.userPassword
+                    userphone: req.body.userPhone,
+                    userpassword: hashPassword
                 })
 
                 newCostumer.save((err, data) => {
@@ -45,8 +47,9 @@ api.use('/signup', (req, res, next) => {
                             message: 'SignUp has been successfully'
                         })
                     } else {
-                        res.ststus(403).send({
-                            message: 'User already created'
+                        res.send({
+                            message: 'User already created',
+                            status : 403
                         })
                     }
                 })
@@ -58,8 +61,9 @@ api.use('/signup', (req, res, next) => {
             })
         } else {
 
-            res.status(403).send({
-                message: "User already exist"
+            res.send({
+                message: "User already exist",
+                status : 403
             })
         }
     })
@@ -68,21 +72,23 @@ api.use('/signup', (req, res, next) => {
 
 api.post('/login', (req, res, next) => {
 
-    cosnsole.log(!req.body.userPassword)
-    cosnsole.log(!req.body.userEmail)
+    console.log(req.body.userPassword)
+    console.log(req.body.userEmail)
 
     if (!req.body.userPassword
         || !req.body.userEmail) {
         res.status(403).send(`
             Please Provide complete information like(
-                useremail: "zubair@gmail.com,
-                userpassword: "zubair,
+                {
+                    userEmail: "zubair@gmail.com,
+                    userPassword: "zubair,
+                }
             )
             `)
         return
     }
 
-    costumerModel.findOne({ email: req.body.userEmail }, function (err, loginCostumer) {
+    costumerModel.findOne({ useremail: req.body.userEmail }, function (err, loginCostumer) {
 
         if (err) {
             res.status(500).send({
@@ -93,14 +99,14 @@ api.post('/login', (req, res, next) => {
 
             console.log(loginCostumer)
 
-            bcrypt.varifyHash(req.body.password, loginCostumer.password).then(match => {
+            bcrypt.varifyHash(req.body.userPassword, loginCostumer.userpassword).then((match) => {
 
                 if (match) {
 
                     var token = jwt.sign({
-                        name: loginCostumer.name,
-                        email: loginCostumer.email,
-                        phone: loginCostumer.phone,
+                        name: loginCostumer.username,
+                        email: loginCostumer.useremail,
+                        phone: loginCostumer.userphone,
                         id: loginCostumer.id,
                         ip: req.connection.remoteAddress
 
@@ -113,11 +119,10 @@ api.post('/login', (req, res, next) => {
                     res.send({
                         message: "login success",
                         status: 200,
-
                         loginCostumer: {
-                            name: loginCostumer.name,
-                            email: loginCostumer.email,
-                            phone: loginCostumer.phone,
+                            name: loginCostumer.username,
+                            email: loginCostumer.useremail,
+                            phone: loginCostumer.userphone,
 
                         }
                     });
@@ -129,6 +134,7 @@ api.post('/login', (req, res, next) => {
                         status: 404
                     })
                 }
+
             }).catch(e => {
                 console.log("errer : ", e)
             })
