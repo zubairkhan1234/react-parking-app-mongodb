@@ -2,7 +2,7 @@ var mongoose = require('mongoose')
 var dotenv = require('dotenv').config()
 
 
-// var dburi = process.env.MONGOOSE_DB
+var dburi = process.env.MONGOOSE_DB
 mongoose.connect(dburi, { useNewUrlParser: true, useUnifiedTopology: true })
 
 
