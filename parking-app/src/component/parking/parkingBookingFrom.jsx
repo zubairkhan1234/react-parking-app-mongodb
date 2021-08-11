@@ -1,9 +1,12 @@
 import React, { useState, useRef } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import { Container, Box, Typography, Button } from '@material-ui/core';
 import bookingImage from '../images/booking.jpg'
+import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
+import { Container, Box, Typography, Button } from '@material-ui/core';
+import axios from 'axios'
 import 'date-fns';
+import moment from 'moment'
+import url from '../url/baseUrl'
 import DateFnsUtils from '@date-io/date-fns';
 import {
     MuiPickersUtilsProvider,
@@ -48,64 +51,80 @@ const useStyles = makeStyles((theme) => ({
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)'
-    }
+    },
+    textField: {
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+        width: 200,
+    },
 }));
 
 
 export default function ParkingBookingFrom() {
     const classes = useStyles();
-    const [endTime, setEndTime] = useState(new Date());
-    const [startTime, setStartTime] = useState(new Date());
-    const [startDate, setStartDate] = useState(new Date().toLocaleDateString());
     const [endDate, setEndDate] = useState(new Date().toLocaleDateString());
+    const [startDate, setStartDate] = useState(new Date().toLocaleDateString());
+    const [startTime, setstartTime] = useState(new Date());
+    const [endTime, setendTime] = useState(new Date());
 
     const handleStartDate = (date) => {
-        setStartDate(date.toLocaleDateString());
+        setStartDate(date);
     };
     const handleEndDate = (date) => {
-        setEndDate(date.toLocaleDateString());
-    };
-    const handleStartTime = (date) => {
-        setStartTime(date.toLocaleTimeString());
-    };
-    const handleEndTime = (date) => {
-        setEndTime(date.toLocaleTimeString());
+        setEndDate(date);
     };
 
+    const handleDateChange = (date) => {
+        setstartTime(date);
+    };
 
+    const handleDateChange2 = (date) => {
+        setendTime(date);
+    };
+
+    console.log("zubair ", endTime.toLocaleTimeString())
 
     const bookingStart = new Date(startDate + " " + " " + startTime)
     const bookingEnd = new Date(endDate + " " + " " + endTime)
-
+    console.log("accepted", bookingStart)
+    console.log("accepted end", bookingEnd)
 
     const slotBooking = (event) => {
         event.preventDefault()
-
-
-
         console.log(startTime)
         console.log(endTime)
         console.log(startDate)
         console.log(endDate)
-        if (startDate > endDate) {
+        if (moment(startDate) > moment(endDate)) {
             alert("End Date should be equal or greater than start date")
-            console.log("right1")
-        } else if(endTime < startTime) {
-            console.log("right2")
+            // console.log("right1")
+        } else {
+            alert('date is okay')
+        }
+        if (endTime < startTime) {
+            // console.log("right2")
             alert("End time should be greater than start time")
-        }else{
-            console.log('wrong')
-        
+        } else {
+            alert('Time is okay')
         }
 
+        axios({
+            method: "post",
+            url: `${url}/slotbooking`,
+            data: {
+                startDate: bookingStart ,
+                endDate: bookingStart,
+                location: "karachi",
+                slots: 1,
+            },
+            withCredentials: true
 
+        }).then((res) => {
+            console.log(res)
+        }).catch((err) => {
+            console.log(err)
+        })
     }
-
-
-
-
-
-
 
     return (
         <Container>
@@ -123,9 +142,8 @@ export default function ParkingBookingFrom() {
                                         <KeyboardDatePicker
                                             margin="normal"
                                             id="date-picker-dialog"
-                                            label="Pick your Start Date"
+                                            label="Start Date"
                                             format="MM/dd/yyyy"
-                                            name='zubarikha n'
                                             value={startDate}
                                             onChange={handleStartDate}
                                             KeyboardButtonProps={{
@@ -134,24 +152,10 @@ export default function ParkingBookingFrom() {
                                         />
                                     </Grid>
                                     <Grid>
-                                        <KeyboardTimePicker
-                                            margin="normal"
-                                            id="time-picker"
-                                            label="Pick your Start Time"
-                                            defaultValue={startTime}
-                                            onChange={handleStartTime}
-                                            KeyboardButtonProps={{
-                                                'aria-label': 'change time',
-                                            }}
-                                        />
-                                    </Grid>
-                                </Box>
-                                <Box display="flex" justifyContent="space-around">
-                                    <Grid>
                                         <KeyboardDatePicker
                                             margin="normal"
                                             id="date-picker-dialog"
-                                            label="Pick your End Date"
+                                            label="End Date"
                                             format="MM/dd/yyyy"
                                             value={endDate}
                                             onChange={handleEndDate}
@@ -159,14 +163,29 @@ export default function ParkingBookingFrom() {
                                                 'aria-label': 'change date',
                                             }}
                                         />
+
+                                    </Grid>
+                                </Box>
+                                <Box display="flex" justifyContent="space-around">
+                                    <Grid>
+                                        <KeyboardTimePicker
+                                            margin="normal"
+                                            id="time-picker"
+                                            label="Start Time"
+                                            value={startTime}
+                                            onChange={handleDateChange}
+                                            KeyboardButtonProps={{
+                                                'aria-label': 'change time',
+                                            }}
+                                        />
                                     </Grid>
                                     <Grid>
                                         <KeyboardTimePicker
                                             margin="normal"
                                             id="time-picker"
-                                            label="Pick your End Date"
-                                            defaultValue={endTime}
-                                            onChange={handleEndTime}
+                                            label="End Time "
+                                            value={endTime}
+                                            onChange={handleDateChange2}
                                             KeyboardButtonProps={{
                                                 'aria-label': 'change time',
                                             }}
