@@ -55,7 +55,6 @@ export default function ParkingAreas() {
               </Link>
               <Link to="/parking-slots-detail">
                 <Button size="small" color="primary">
-
                   Slot details
                 </Button>
               </Link>
