@@ -69,7 +69,11 @@ export default function SignUp() {
             withCredentials: true
         }).then((res) => {
             console.log(res)
-
+            if (res.data.message === 200) {
+                alert(`${res.data.message}`)
+            } else {
+                alert(`${res.data.message}`)
+            }
         }).catch((err) => {
             console.log(err)
         })

@@ -32,7 +32,6 @@ var costumerSignup = new mongoose.Schema({
     useremail: String,
     userphone: String,
     userpassword: String,
-    role: { type: String, "default": "student" },
     createdOn: { type: Date, 'default': Date.now },
     activeSince: Date
 

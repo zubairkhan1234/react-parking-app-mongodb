@@ -1,9 +1,11 @@
 import React from 'react'
 import NavAndRouting from './component/navAndRouting/NavAndRouting';
-
+import { GlobalStateProvider } from './contexApi/Context';
 function App() {
   return (
-    <NavAndRouting />
+    <GlobalStateProvider>
+      <NavAndRouting />
+    </GlobalStateProvider>
   );
 }
 

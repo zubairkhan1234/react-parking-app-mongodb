@@ -1,11 +1,11 @@
-import React, {useRef} from 'react';
+import React, { useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { Container, Box, Typography, TextField, Button } from '@material-ui/core';
 import signUpImage from '../images/login.png'
 import axios from 'axios'
 import url from '../url/baseUrl'
-
+import { UseGlobalState, UseGlobalStateUpdate } from '../../contexApi/Context'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        marginTop:'5%'
+        marginTop: '5%'
 
     },
     paper: {
@@ -45,10 +45,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login() {
     const classes = useStyles();
-    
+    const GlobalState = UseGlobalState()
+    const GlobalStateUpdate = UseGlobalStateUpdate()
     const userEmail = useRef()
     const userPassword = useRef()
-    
+
+    console.log(GlobalStateUpdate)
     const costumerLogin = (e) => {
         e.preventDefault()
         console.log(userPassword.current.value)
@@ -65,12 +67,22 @@ export default function Login() {
             withCredentials: true
         }).then((res) => {
             console.log(res)
+            if (res.data.status === 200) {
+                alert(`${res.data.message}`)
+                GlobalStateUpdate(pre => ({
+                    ...pre,
+                    user: res.data.loginCostumer
+                }))
+            } else {
+                alert(`${res.data.message}`)
+            }
 
         }).catch((err) => {
             console.log(err)
         })
     }
 
+    console.log(GlobalState)
 
     return (
         <Container>

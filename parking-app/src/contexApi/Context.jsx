@@ -10,7 +10,6 @@ const UseGlobalStateUpdate = () => useContext(GlobalStateUpdateContext)
 function GlobalStateProvider({ children }) {
 
     const [data, setData] = useState({
-        role: null,
         user: null,
         loginStatus: false,
         orderUser: null
@@ -19,24 +18,25 @@ function GlobalStateProvider({ children }) {
 
     useEffect(() => {
         axios({
-            method: 'post',
+            method: 'get',
             url: `${url}/getprofile`,
             withCredentials: true
 
-        }).then((res) => {
+        }).then(function (res) {
             console.log("constext Api response", res)
             if (res.data.status === 200) {
-                setData(pre => ({
-                    ...pre,
-                    user: user.data.frofile
+                alert("get profile response in else condition ",res)
+                setData(prev => ({
+                    ...prev,
+                    user: res.data.frofile
+
                 }))
-
-
             } else {
-
+                alert(res.data.message)
+                console.log("get profile response in else condition ", res)
             }
         }).catch((err) => {
-            console.log(err)
+            // console.log(err)
         })
     }, [])
 
