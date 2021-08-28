@@ -30,8 +30,8 @@ api.use('/signup', (req, res, next) => {
         
         if (err) {
             console.log(err)
-        } else if (!costumers) {
             console.log( "This is costumer ", costumers)
+        } else if (!costumers) {
             bcrypt.stringToHash(req.body.userPassword).then(function (hashPassword) {
 
                 var newCostumer = new costumerModel({

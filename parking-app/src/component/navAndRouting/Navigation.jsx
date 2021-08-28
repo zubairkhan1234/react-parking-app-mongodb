@@ -16,6 +16,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Hidden from '@material-ui/core/Hidden';
 import { Box } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import { UseGlobalState } from '../../contexApi/Context'
 
 
 const drawerWidth = 240;
@@ -77,9 +78,14 @@ const useStyles = makeStyles((theme) => ({
         }),
         marginLeft: 0,
     },
-    linkColor:{
-        color:'#ffff',
+    linkColor: {
+        color: '#ffff',
         textDecoration: 'none'
+    },
+    color: {
+        color: 'black',
+        display: 'block',
+        margin: '0 auto'
     }
 }));
 
@@ -88,6 +94,8 @@ export default function Navigation() {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
+    const GlobalState = UseGlobalState()
+    console.log('navigation', GlobalState.loginStatus)
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -99,15 +107,22 @@ export default function Navigation() {
             <Box className={classes.root} component={Hidden} mdDown>
                 <AppBar position="static">
                     <Toolbar>
-
                         <Typography variant="h6" className={classes.title}>
                             Muhammad Zubair
                         </Typography>
-                        <Link className={classes.linkColor} to="/"><Button color="inherit"> Signup </Button> </Link>
-                        <Link className={classes.linkColor} to="/login"><Button color="inherit"> Login </Button> </Link>
-                        <Link className={classes.linkColor} to="/dashboard"><Button color="inherit"> Dashboard </Button> </Link>
-                        <Link className={classes.linkColor} to="/parking-slots-booking"><Button color="inherit"> Booking </Button> </Link>
-                        <Link className={classes.linkColor} to="/parking-slots-detail"><Button color="inherit"> detail </Button> </Link>
+                        {GlobalState.loginStatus === false ?
+                            <>
+                                <Link className={classes.linkColor} to="/"><Button color="inherit"> Signup </Button> </Link>
+                                <Link className={classes.linkColor} to="/login"><Button color="inherit"> Login </Button> </Link>
+                            </>
+                            : null}
+                        {GlobalState.loginStatus === true ?
+                            <>
+                                <Link className={classes.linkColor} to="/"><Button color="inherit"> Dashboard </Button> </Link>
+                                <Link className={classes.linkColor} to="/parking-slots-booking"><Button color="inherit"> Booking </Button> </Link>
+                                <Link className={classes.linkColor} to="/parking-slots-detail"><Button color="inherit"> detail </Button> </Link>
+                            </>
+                            : null}
 
                     </Toolbar>
                 </AppBar>
@@ -150,11 +165,11 @@ export default function Navigation() {
                         </IconButton>
                     </div>
                     <List>
-                    <Link className={classes.linkColor} to="/"><Button color="inherit"> Signup </Button> </Link>
-                    <Link className={classes.linkColor} to="/login"><Button color="inherit"> Login </Button> </Link>
-                    <Link className={classes.linkColor} to="/dashboard"><Button color="inherit"> Dashboard </Button> </Link>
-                    <Link className={classes.linkColor} to="/parking-slots-booking"><Button color="inherit"> Booking </Button> </Link>
-                    <Link className={classes.linkColor} to="/parking-slots-detail"><Button color="inherit"> detail </Button> </Link>
+                        <Link className={classes.linkColor} to="/"><Button className={classes.color}> Signup </Button> </Link>
+                        <Link className={classes.linkColor} to="/login"><Button className={classes.color}> Login </Button> </Link>
+                        <Link className={classes.linkColor} to="/dashboard"><Button className={classes.color}> Dashboard </Button> </Link>
+                        <Link className={classes.linkColor} to="/parking-slots-booking"><Button className={classes.color}> Booking </Button> </Link>
+                        <Link className={classes.linkColor} to="/parking-slots-detail"><Button className={classes.color}> detail </Button> </Link>
                     </List>
                 </Drawer>
             </Box>

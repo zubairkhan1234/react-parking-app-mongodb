@@ -28,7 +28,7 @@ mongoose.connection.on('SIGNIT', function () {
 })
 
 var costumerSignup = new mongoose.Schema({
-    usrname: String,
+    username: String,
     useremail: String,
     userphone: String,
     userpassword: String,

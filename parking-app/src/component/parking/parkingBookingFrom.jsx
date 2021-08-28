@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import bookingImage from '../images/booking.jpg'
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
@@ -84,8 +84,10 @@ export default function ParkingBookingFrom() {
 
     console.log("zubair ", endTime.toLocaleTimeString())
 
-    const bookingStart = new Date(startDate + " " + " " + startTime)
-    const bookingEnd = new Date(endDate + " " + " " + endTime)
+    // const bookingStart = new Date(startDate + " " + " " + startTime)
+    // const bookingEnd = new Date(endDate + " " + " " + endTime)
+    const bookingStart = new Date(startDate + startTime)
+    const bookingEnd = new Date(endDate + endTime)
     console.log("accepted", bookingStart)
     console.log("accepted end", bookingEnd)
 

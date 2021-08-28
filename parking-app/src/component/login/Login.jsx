@@ -50,7 +50,7 @@ export default function Login() {
     const userEmail = useRef()
     const userPassword = useRef()
 
-    console.log(GlobalStateUpdate)
+    // console.log(GlobalStateUpdate)
     const costumerLogin = (e) => {
         e.preventDefault()
         console.log(userPassword.current.value)
@@ -71,7 +71,8 @@ export default function Login() {
                 alert(`${res.data.message}`)
                 GlobalStateUpdate(pre => ({
                     ...pre,
-                    user: res.data.loginCostumer
+                    user: res.data.loginCostumer,
+                    loginStatus: true
                 }))
             } else {
                 alert(`${res.data.message}`)

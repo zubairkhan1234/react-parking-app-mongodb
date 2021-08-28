@@ -25,18 +25,23 @@ function GlobalStateProvider({ children }) {
         }).then(function (res) {
             console.log("constext Api response", res)
             if (res.data.status === 200) {
-                alert("get profile response in else condition ",res)
+                alert("get profile response in else condition ", res)
                 setData(prev => ({
                     ...prev,
-                    user: res.data.frofile
+                    user: res.data.frofile,
+                    loginStatus: true
 
                 }))
             } else {
                 alert(res.data.message)
                 console.log("get profile response in else condition ", res)
             }
-        }).catch((err) => {
+        }).catch((error) => {
             // console.log(err)
+            if (error && error.response && error.response.status) {
+                // console.log("error ==============> ", error.response.status);
+                setData(prev => ({ ...prev, loginStatus: false }))
+            }
         })
     }, [])
 
